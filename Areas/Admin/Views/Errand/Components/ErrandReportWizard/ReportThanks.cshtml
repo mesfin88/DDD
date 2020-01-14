@@ -1,0 +1,15 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+@model Boven.Areas.Admin.Models.ErrandReportFormViewModel
+
+<h2>Tack för din Anmälan</h2>
+<p class="info">I Småstad är inga brott för små för att anmälas</p>
+
+<p>
+    Anmälan har nu skickats in till kommunen och kommer att utredas. <br />
+    Vill du komplettera din anmälan kontakta oss via mail eller telefon. <br />
+    Ange då nummer: @Model.RefNumber
+</p>
+<p><a asp-area="" asp-controller="Home" asp-action="Index" class="button">Avsluta</a></p>

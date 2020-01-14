@@ -1,0 +1,108 @@
+﻿ft3\Boven> dotnet ef migrations remove
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 2.1.3-rtm-32065 initialized 'BovenDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+No ModelSnapshot was found.
+PS Microsoft.PowerShell.Core\FileSystem::\\Rigagatandator\5_dev\HT18\Kurser_HT_18\36_45_dotnet_uppsala\dev\asp_net\Uppgift3\Boven> dotnet ef migrations add Initial
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 2.1.3-rtm-32065 initialized 'BovenDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+Done. To undo this action, use 'ef migrations remove'
+PS Microsoft.PowerShell.Core\FileSystem::\\Rigagatandator\5_dev\HT18\Kurser_HT_18\36_45_dotnet_uppsala\dev\asp_net\Uppgift3\Boven> dotnet ef database update
+info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
+      Entity Framework Core 2.1.3-rtm-32065 initialized 'BovenDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (151ms) [Parameters=[], CommandType='Text', CommandTimeout='60']
+      CREATE DATABASE [Boven];
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (29ms) [Parameters=[], CommandType='Text', CommandTimeout='60']
+      IF SERVERPROPERTY('EngineEdition') <> 5
+      BEGIN
+          ALTER DATABASE [Boven] SET READ_COMMITTED_SNAPSHOT ON;
+      END;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [__EFMigrationsHistory] (
+          [MigrationId] nvarchar(150) NOT NULL,
+          [ProductVersion] nvarchar(32) NOT NULL,
+          CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [MigrationId], [ProductVersion]
+      FROM [__EFMigrationsHistory]
+      ORDER BY [MigrationId];
+info: Microsoft.EntityFrameworkCore.Migrations[20402]
+      Applying migration '20181011112152_Initial'.
+Applying migration '20181011112152_Initial'.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Departments] (
+          [DepartmentId] nvarchar(450) NOT NULL,
+          [DepartmentName] nvarchar(max) NULL,
+          CONSTRAINT [PK_Departments] PRIMARY KEY ([DepartmentId])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Employees] (
+          [EmployeeId] nvarchar(450) NOT NULL,
+          [EmployeeName] nvarchar(max) NULL,
+          [RoleTitle] nvarchar(max) NULL,
+          [DepartmentId] nvarchar(max) NULL,
+          CONSTRAINT [PK_Employees] PRIMARY KEY ([EmployeeId])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Errands] (
+          [ErrandID] int NOT NULL IDENTITY,
+          [Place] nvarchar(max) NOT NULL,
+          [TypeOfCrime] nvarchar(max) NOT NULL,
+          [DateOfObservation] datetime2 NOT NULL,
+          [Observation] nvarchar(max) NULL,
+          [InformerName] nvarchar(max) NOT NULL,
+          [InformerPhone] nvarchar(max) NOT NULL,
+          [InvestigatorInfo] nvarchar(max) NULL,
+          [InvestigatorAction] nvarchar(max) NULL,
+          [RefNumber] nvarchar(max) NULL,
+          [StatusId] nvarchar(max) NULL,
+          [DepartmentId] nvarchar(max) NULL,
+          [EmployeeId] nvarchar(max) NULL,
+          CONSTRAINT [PK_Errands] PRIMARY KEY ([ErrandID])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [ErrandStatuses] (
+          [StatusId] nvarchar(450) NOT NULL,
+          [StatusName] nvarchar(max) NULL,
+          CONSTRAINT [PK_ErrandStatuses] PRIMARY KEY ([StatusId])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Pictures] (
+          [PictureId] int NOT NULL IDENTITY,
+          [PictureName] int NOT NULL,
+          [ErrandId] int NOT NULL,
+          CONSTRAINT [PK_Pictures] PRIMARY KEY ([PictureId])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Samples] (
+          [SampleId] int NOT NULL IDENTITY,
+          [SampleName] int NOT NULL,
+          [ErrandId] int NOT NULL,
+          CONSTRAINT [PK_Samples] PRIMARY KEY ([SampleId])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Sequences] (
+          [Id] int NOT NULL IDENTITY,
+          [CurrentValue] int NOT NULL,
+          CONSTRAINT [PK_Sequences] PRIMARY KEY ([Id])
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+      VALUES (N'20181011112152_Initial', N'2.1.3-rtm-32065');
+Done.
+PS Microsoft.PowerShell.Core\FileSystem::\\Rigagatandator\5_dev\HT18\Kurser_HT_18\36_45_dotnet_uppsala\dev\asp_net\Uppgift3\Boven>

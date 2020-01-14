@@ -1,0 +1,25 @@
+﻿
+
+@model Boven.Areas.Identity.Models.LoginViewModel
+
+<h2>Inloggning för Småstads personal</h2>
+<p class="info">En säker tjänst från Småstads IT-avdelning</p>
+
+
+<form asp-area="Identity" asp-controller="Account" asp-action="Login" method="post">
+    <p>
+        <input type="hidden" asp-for="ReturnUrl" />
+    </p>
+    <p>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </p>
+    <p>
+        <input asp-for="Password" />
+        <div asp-validation-summary="All"></div>
+    </p>
+    <p>
+        <input class="button" type="submit" value="Logga in" />
+    </p>
+</form>
+

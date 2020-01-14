@@ -1,0 +1,31 @@
+﻿
+
+
+
+<h2>Detaljer för ärendet</h2>
+
+<vc:account-information></vc:account-information>
+
+
+@model Boven.Areas.Admin.Models.ErrandDetailVM
+
+
+@await Component.InvokeAsync("ErrandDetailVC", Model.errandId)
+
+
+
+<!--COORDINATOR-->
+<section id="bottomColumn">
+    <h3>Redigera ärende</h3>
+    <form asp-controller="Errand" asp-action="UpdateErrandDetails" method="post">
+        <input asp-for="errandId" type="hidden" />
+        <p>
+            Ange enhet:
+            <select asp-for="departmentId" asp-items="@Model.Departments">
+                <option value="null"><!--Välj alla--></option>
+            </select>
+        </p>
+        <p><input class="button" type="submit" value="Spara" />
+    </form>
+
+</section>

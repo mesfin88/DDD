@@ -1,0 +1,43 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Boven
+@{
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+<h2>Välkommen att fylla i din anmälan av miljöbrott</h2>
+<p class="info">I Småstad är inga brott för små för att anmälas</p>
+
+<p>Fyll i formuläret nedan, alla rutor markerade med stjärna (*) måste fyllas i</p>
+
+@model Boven.Areas.Admin.Models.ErrandReportFormViewModel
+
+<form asp-area="Admin" asp-controller="Errand" asp-action="ErrandReport" asp-route-wizpagenr="1" method="post">
+    <p>
+        <div asp-validation-summary="All"></div>
+        <label asp-for="Place" class="label"></label><br />
+        <input asp-for="Place" />
+    </p>
+    <p>
+        <label asp-for="TypeOfCrime" class="label"></label><br />
+        <input asp-for="TypeOfCrime" />
+    </p>
+    <p>
+        <label asp-for="DateOfObservation" class="label"></label><br />
+        <input asp-for="DateOfObservation" />
+    </p>
+    <p>
+        <label asp-for="InformerName" class="label"></label><br />
+        <input asp-for="InformerName" />
+    </p>
+    <p>
+        <label asp-for="InformerPhone" class="label"></label><br />
+        <input asp-for="InformerPhone" />
+    </p>
+    <p>
+        <label asp-for="Observation" class="label"></label><br />
+        <input asp-for="Observation" />
+    </p>
+
+    <p>
+        <input class="button" type="submit" value="Skicka in" />
+    </p>
+</form>

@@ -1,0 +1,37 @@
+﻿
+
+<h2>Detaljer för ärendet</h2>
+<vc:account-information></vc:account-information>
+
+@model Boven.Areas.Admin.Models.ErrandDetailVM
+
+
+@await Component.InvokeAsync("ErrandDetailVC", Model.errandId)
+
+
+<!--INVESTIGATOR-->
+<section id="bottomColumn">
+    <h3>Redigera ärende</h3>
+    <form method="post" enctype="multipart/form-data" asp-controller="Errand" asp-action="UpdateErrandDetails">
+        <p class="label">Händelser:</p>
+        <input asp-for="errandId" type="hidden" />
+        <textarea asp-for="events" rows="5" cols="60"></textarea>
+
+        <p class="label">Mer information:</p>
+        <textarea asp-for="information" rows="5" cols="60"></textarea>
+
+        <p class="label">Prover:</p>
+        <input type="file" name="loadSample" multiple />
+
+        <p class="label">Ladda upp bilder:</p>
+        <input type="file" name="loadImage" multiple />
+
+        <p class="label">Ändring av status:</p>
+        <select asp-for="statusId" asp-items="@Model.ErrandStatuses">
+            <option value="null" selected="selected"><!--Välj alla--></option>
+        </select>
+        <input class="button" type="submit" value="Spara ändringarna" />
+    </form>
+    <p>
+    </p>
+</section>

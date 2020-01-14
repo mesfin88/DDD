@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+<vc:account-information></vc:account-information>
+
+@model Boven.Areas.Admin.Models.ErrandListModel
+
+<form asp-controller="Errand" asp-action="ErrandList">
+    <table id="managerForm">
+        <tr>
+            <td class="label">Välj status:</td>
+            @if ((await AuthorizationService.AuthorizeAsync(User, "RequireCoordinatorRole")).Succeeded)
+            {
+                <td class="label">Välj avdelning:</td>
+            }
+            @if ((await AuthorizationService.AuthorizeAsync(User, "RequireManagerRole")).Succeeded)
+            {
+                <td class="label">Välj handläggare:</td>
+            }
+            <td>&nbsp;</td>
+            <td class="label">Ärendenummer:</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <select asp-for="statusId" asp-items="@Model.ErrandStatuses">
+                    <option value="null" selected="selected">Välj alla</option>
+                </select>
+            </td>
+            @if ((await AuthorizationService.AuthorizeAsync(User, "RequireCoordinatorRole")).Succeeded)
+            {
+                <td>
+                    <select asp-for="departmentId" asp-items="@Model.Departments">
+                        <option value="null" selected="selected">Välj alla</option>
+                    </select>
+                </td>
+            }
+            @if ((await AuthorizationService.AuthorizeAsync(User, "RequireManagerRole")).Succeeded)
+            {
+                <td>
+                    <select asp-for="employeeId" asp-items="@Model.Employees">
+                        <option value="null" selected="selected">Välj alla</option>
+                    </select>
+                </td>
+            }
+            <td><input class="button" type="submit" value="Hämta lista" /></td>
+            <td><input asp-for="refNr" /></td>
+            <td><input class="button" type="submit" value="Sök" /></td>
+        </tr>
+    </table>
+</form>
+
+<!--Nedan ser man en lista på ärenden-->
+<table>
+    <tr>
+        <th>Ärende anmält</th>
+        <th>Ärendenummer</th>
+        <th>Miljöbrott</th>
+        <th>Status</th>
+        <th>Avdelning</th>
+        <th>Handläggare</th>
+    </tr>
+    @foreach (Boven.Areas.WData.BovenDB.Models.JoinedEntitysModel errand in Model.Errands)
+    {
+        <tr>
+            <td>@errand.DateOfObservation</td>
+            <td><a asp-controller="Errand" asp-action="ErrandDetails" asp-route-id="@errand.ErrandId">@errand.RefNumber</a></td>
+            <td>@errand.TypeOfCrime</td>
+            <td>@errand.StatusName</td>
+            <td>@errand.DepartmentName</td>
+            <td>@errand.EmployeeName</td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,28 @@
+﻿
+
+<h2>Detaljer för ärendet</h2>
+
+<vc:account-information></vc:account-information>
+
+@model Boven.Areas.Admin.Models.ErrandDetailVM
+
+@await Component.InvokeAsync("ErrandDetailVC", Model.errandId)
+
+
+<!--MANAGER-->
+
+<section id="bottomColumn">
+    <h3>Redigera ärende</h3>
+    <form asp-controller="Errand" asp-action="UpdateErrandDetails">
+        <input asp-for="errandId" type="hidden" />
+        <p>
+            Ange handläggare:
+            <select asp-for="employeeId" asp-items="@Model.Employees">
+                <option value="null" selected="selected"><!--Välj alla--></option>
+            </select>
+        </p>
+        <p><input asp-for="noAction" type="checkbox" value="true" /> Ingen åtgärd: <input asp-for="noActionReason" type="text" /></p>
+        <input type="hidden" asp-for="information" />
+        <p><input class="button" type="submit" value="Spara" />   </p>
+    </form>
+</section>

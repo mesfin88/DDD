@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authorization
+
+@inject IAuthorizationService AuthorizationService
+
+@inject SignInManager<IdentityUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <nav>
+        <ul>
+            <li><a class="reports" asp-controller="Errand" asp-action="ErrandList">Start(Ärenden)</a></li>
+            @if ((await AuthorizationService.AuthorizeAsync(User, "RequireCoordinatorRole")).Succeeded)
+            {
+                <li><a asp-area="Admin" asp-controller="Errand" asp-action="ErrandReport" class="reportAdd">Rapportera brott</a></li>
+            }
+            <li class="right"><a asp-area="Identity" asp-controller="Account" asp-action="Logout" class="logout">Logga ut</a></li>
+        </ul>
+    </nav>
+
+}
+else
+{
+    <nav>
+        <ul>
+            <li><a asp-area="" asp-controller="Home" asp-action="Index">Hem</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Services">Tjänster</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Faq">FAQ</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
+            <li class="right"><a asp-area="Identity" asp-controller="Account" asp-action="Login" class="login">Logga in (endast personal)</a></li>
+        </ul>
+    </nav>
+
+}

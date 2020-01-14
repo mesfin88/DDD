@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@model Boven.Areas.Identity.Models.UsersListModel
+
+@if ((await AuthorizationService.AuthorizeAsync(User, "RequireEmployeeRole")).Succeeded)
+    {
+
+
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Namn</th>
+                <th>Roller</th>
+            </tr>
+            @foreach (Boven.Areas.Identity.Models.User user in Model.Users)
+            {
+                <tr>
+                    <td>@user.ID</td>
+                    <td>@user.Name</td>
+                    <td>
+                        <select asp-items="@user.Roles"></select>
+                    </td>
+                    <td><a asp-controller="Users" asp-action="UserDelete" asp-route-id="@user.Name">Radera användare</a></td>
+                </tr>
+            }
+        </table>
+    }
